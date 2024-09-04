@@ -1,12 +1,10 @@
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import NextTopLoader from "nextjs-toploader";
 import HomeTemplate from "./_commons/components/templates/home.templates";
-import ApolloWrapper from "./_commons/utils/provider/apolloWrapper";
-import client from "./_modules/infrastructure/apollo/apollo-client";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -39,12 +37,12 @@ export default function RootLayout({
           shadow="0 0 10px #2299DD,0 0 5px #2299DD"
         />
         <AntdRegistry>
-          <ApolloWrapper>
-            <HomeTemplate>
-              <ToastContainer />
-              {children}
-            </HomeTemplate>
-          </ApolloWrapper>
+          {/* <ApolloWrapper> */}
+          <HomeTemplate>
+            <ToastContainer />
+            {children}
+          </HomeTemplate>
+          {/* </ApolloWrapper> */}
         </AntdRegistry>
       </body>
     </html>

@@ -1,19 +1,39 @@
+import ApolloClientProvider from "./_commons/utils/provider/apolloWrapper";
+import { initializeApollo } from "./_modules/infrastructure/apollo/apollo-client";
+import { FIND_MANY_TOPICS } from "./_modules/infrastructure/apollo/queries/topic.query";
 import DepositionListing from "./_modules/presentation/pages/deposition-listing";
 
 export interface PropertiesProps {
   searchParams: {
     offset: string;
     searchTerm: string;
-    limit: number;
+    limit: string;
     page: number;
     isSearch: string;
   };
 }
 
-export default function Home({ searchParams }: PropertiesProps) {
+export default async function Home({ searchParams }: PropertiesProps) {
+  const client = initializeApollo(null);
+  const { data } = await client.query({
+    query: FIND_MANY_TOPICS,
+    variables: {
+      topicsInput: {
+        limit: 14,
+        offset: parseInt(searchParams.offset) ?? 0,
+        search: searchParams.searchTerm ?? "",
+      },
+    },
+    fetchPolicy: "network-only",
+  });
+
   return (
     <main className="mt-6">
-      <DepositionListing searchParams={searchParams} />
+      <ApolloClientProvider
+        initialApolloState={JSON.stringify(client.cache.extract())}
+      >
+        <DepositionListing searchParams={searchParams} data={data} />
+      </ApolloClientProvider>
     </main>
   );
 }

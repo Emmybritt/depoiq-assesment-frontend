@@ -1,14 +1,19 @@
 import Listings from "@/app/_commons/components/organisms/listing";
-import { fetchData } from "../../infrastructure/action";
-import { PropertiesProps } from "@/app/page";
 
-const DepositionListing = async ({ searchParams }: PropertiesProps) => {
-  const data = await fetchData(
-    searchParams.limit,
-    parseInt(searchParams.offset, 10),
-    searchParams.searchTerm
-  );
-
+interface DepositionListingProp {
+  searchParams: {
+    offset: string;
+    searchTerm: string;
+    limit: string;
+    page: number;
+    isSearch: string;
+  };
+  data: any;
+}
+const DepositionListing = async ({
+  searchParams,
+  data,
+}: DepositionListingProp) => {
   return (
     <>
       <Listings
