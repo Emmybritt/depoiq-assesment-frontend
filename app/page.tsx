@@ -1,3 +1,4 @@
+import HomeTemplate from "./_commons/components/templates/home.templates";
 import ApolloClientProvider from "./_commons/utils/provider/apolloWrapper";
 import { initializeApollo } from "./_modules/infrastructure/apollo/apollo-client";
 import { FIND_MANY_TOPICS } from "./_modules/infrastructure/apollo/queries/topic.query";
@@ -19,8 +20,8 @@ export default async function Home({ searchParams }: PropertiesProps) {
     query: FIND_MANY_TOPICS,
     variables: {
       topicsInput: {
-        limit: 14,
-        offset: parseInt(searchParams.offset) ?? 0,
+        limit: 15,
+        page: searchParams?.offset ? parseInt(searchParams.offset) : 1,
         search: searchParams.searchTerm ?? "",
       },
     },
@@ -28,12 +29,14 @@ export default async function Home({ searchParams }: PropertiesProps) {
   });
 
   return (
-    <main className="mt-6">
-      <ApolloClientProvider
-        initialApolloState={JSON.stringify(client.cache.extract())}
-      >
-        <DepositionListing searchParams={searchParams} data={data} />
-      </ApolloClientProvider>
-    </main>
+    <HomeTemplate>
+      <main className="mt-6">
+        <ApolloClientProvider
+          initialApolloState={JSON.stringify(client.cache.extract())}
+        >
+          <DepositionListing searchParams={searchParams} data={data} />
+        </ApolloClientProvider>
+      </main>
+    </HomeTemplate>
   );
 }

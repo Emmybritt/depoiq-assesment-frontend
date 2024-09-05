@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useIntersectionObserver } from "./useIntersectionObserver";
@@ -8,7 +9,7 @@ import Groq from "groq-sdk";
 import { Topic } from "../../domain/topic";
 
 const groq = new Groq({
-  apiKey: "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",
+  apiKey: process.env.NEXT_PUBLIC_GROK_API_KEY,
   dangerouslyAllowBrowser: true,
 });
 
@@ -21,7 +22,6 @@ export const useTopic = (isSearch: boolean, topics: Array<Topic>) => {
   const [isGeneratingReport, setIsGeneratingReport] = useState<boolean>(false);
   const [selectedColumn, setSelectedColumn] = useState<string>("");
   const [selectedRowKey, setSelectedRowKey] = useState<string>("");
-  const [isLastItem, setLastItem] = useState<boolean>(false);
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -31,7 +31,7 @@ export const useTopic = (isSearch: boolean, topics: Array<Topic>) => {
     setIsPaginating(true);
     const currentOffset = searchParams.get("offset");
     const params = new URLSearchParams(searchParams);
-    params.set("offset", `${Number(currentOffset || 0) + 20}`);
+    params.set("offset", `${Number(currentOffset || 0) + 1}`);
     params.set("isSearch", "false");
     replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
@@ -112,8 +112,7 @@ export const useTopic = (isSearch: boolean, topics: Array<Topic>) => {
     } else {
       setDataSource((prev) => [...(prev ?? []), ...topics]);
     }
-
-    setLastItem(topics.length <= 0);
+    console.log("logging logigi");
 
     setIsPaginating(false);
     setLoading(false);
@@ -128,7 +127,6 @@ export const useTopic = (isSearch: boolean, topics: Array<Topic>) => {
     isGeneratingReport,
     selectedColumn,
     selectedRowKey,
-    isLastItem,
     handleGenerateDisposition,
     handleCancel,
     updateTopic,

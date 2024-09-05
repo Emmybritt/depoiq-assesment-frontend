@@ -1,7 +1,12 @@
-import { Image, Switch } from "antd";
-import React from "react";
+"use client";
+import { AlignRightOutlined, OpenAIOutlined } from "@ant-design/icons";
+import { useUser } from "@clerk/nextjs";
+import { Button, Image, Switch } from "antd";
+import { UserProfile } from "../../atoms/UserProfile/user-profile-dropdown";
 
 const Layer1 = () => {
+  const { user } = useUser();
+
   return (
     <div className="flex items-center justify-between pb-4 px-[2rem] py-[2.5rem]">
       <div className="flex items-center space-x-6">
@@ -9,7 +14,7 @@ const Layer1 = () => {
           src="/icons/depoiqlogo.png"
           alt={"logo"}
           width={150}
-          height={60}
+          height={50}
           loading="lazy"
           preview={false}
         />
@@ -19,10 +24,14 @@ const Layer1 = () => {
         </div>
       </div>
 
-      <div className="space-x-[2rem] flex items-center">
-        <button className="bg-btn-gradient px-[3rem] py-[1rem] rounded-md text-white">
+      <div className="space-x-[2rem] md:flex hidden items-center">
+        <Button
+          size="large"
+          className="bg-gradient-to-r !bg-[#5c05bf] !hover:bg-blue-600 !text-white"
+        >
+          <OpenAIOutlined className="text-4xl" />
           Ask Ai
-        </button>
+        </Button>
         <Image
           src="/icons/gear.png"
           alt={"gear icon"}
@@ -30,7 +39,12 @@ const Layer1 = () => {
           width={20}
           preview={false}
         />
-        <Switch defaultChecked />
+        <UserProfile user={user} />
+
+        <Switch defaultChecked className="!bg-[#ebd8aa]" />
+      </div>
+      <div className="md:hidden">
+        <AlignRightOutlined className="text-5xl" />
       </div>
     </div>
   );

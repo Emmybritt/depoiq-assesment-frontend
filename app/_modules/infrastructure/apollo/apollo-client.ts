@@ -10,7 +10,7 @@ let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
-    uri: "http://localhost:3000/graphql",
+    uri: process.env.NEXT_PUBLIC_GRAPHQL_BASEURL,
     cache: new InMemoryCache(),
     defaultOptions: {
       watchQuery: {

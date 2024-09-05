@@ -9,11 +9,27 @@ import {
 } from "@ant-design/icons";
 
 export const layer3Tabs = [
-  { name: "PageLine", icon: <ProductFilled /> },
-  { name: "Topical", icon: <BookFilled /> },
-  { name: "Exhibits", icon: <TagFilled />, count: 7 },
-  { name: "Admissions", icon: <MessageFilled />, count: 7 },
-  { name: "Objections", icon: <QuestionCircleFilled />, count: 90 },
-  { name: "Contradictions", icon: <ContainerFilled />, count: 30 },
-  { name: "Discrepancies", icon: <HddFilled />, count: 4 },
+  { name: "PageLine", icon: <ProductFilled className="text-gray-400" /> },
+  { name: "Topical", icon: <BookFilled className="text-gray-400" /> },
+  { name: "Exhibits", icon: <TagFilled className="text-gray-400" />, count: 7 },
+  {
+    name: "Admissions",
+    icon: <MessageFilled className="text-gray-400" />,
+    count: 7,
+  },
+  {
+    name: "Objections",
+    icon: <QuestionCircleFilled className="text-gray-400" />,
+    count: 90,
+  },
+  {
+    name: "Contradictions",
+    icon: <ContainerFilled className="text-gray-400" />,
+    count: 30,
+  },
+  {
+    name: "Discrepancies",
+    icon: <HddFilled />,
+    count: 4,
+  },
 ];

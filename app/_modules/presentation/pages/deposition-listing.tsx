@@ -1,4 +1,4 @@
-import Listings from "@/app/_commons/components/organisms/listing";
+import Listings from "@/app/_commons/components/organisms/Listings/listing";
 
 interface DepositionListingProp {
   searchParams: {

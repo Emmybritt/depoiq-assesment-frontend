@@ -30,7 +30,6 @@ const Listings: React.FC<ListingsProps> = ({
     loader,
     isPaginating,
     isModalOpen,
-    isLastItem,
     inputVal,
     setInputVal,
     createTopicLoading,
@@ -43,6 +42,7 @@ const Listings: React.FC<ListingsProps> = ({
         <div className="space-x-[2rem]">
           <PlusCircleOutlined
             onClick={() => setIsModalOpen(true)}
+            aria-label="plus circle"
             style={{ cursor: "pointer" }}
           />
           <span>Topic</span>
@@ -128,7 +128,7 @@ const Listings: React.FC<ListingsProps> = ({
           ) : (
             <tr>
               <td>
-                {!isLastItem && <div ref={loader} className="h-10 w-full" />}
+                {hasNextPage && <div ref={loader} className="h-10 w-full" />}
               </td>
             </tr>
           )}
@@ -143,7 +143,7 @@ const Listings: React.FC<ListingsProps> = ({
         dataSource={[...dataSource]}
         columns={columns}
         pagination={false}
-        scroll={{ y: 520 }}
+        scroll={{ y: 520, x: 700 }}
         key="data"
         components={{
           body: {
